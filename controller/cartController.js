@@ -1,7 +1,5 @@
-import mongoose from 'mongoose'
-import { cartService } from '../data/cartServices.js'
 import Cart from '../models/Cart.js'
-import { handlerIdErrorMongoose } from '../handlers/handlersErrors.js'
+import { validateObjectId, handleNotFoundError } from '../utils/index.js'
 
 
 const getCarts = async (req, res) => {
@@ -12,12 +10,13 @@ const getCartsById = async (req, res) => {
     const { id } = req.params
 
     //Validacion del id
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        const error = new Error('El ID no es valido')
-        return res.status(400).json({ msg: error.message })
+    if (validateObjectId(id, res)) return
 
-    }
+    //Valido Exitencia 
     const product = await Cart.findById(id)
+    if (!product) {
+        return handleNotFoundError('El Producto no existe', res)
+    }
     res.status(200).json(product)
 }
 
