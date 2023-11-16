@@ -12,18 +12,8 @@ const productSchema = mongoose.Schema({
     thumbnail: String,
 });
 
-// Esquema para carritos
-const cartSchema = mongoose.Schema({
-    id: Number,
-    products: [productSchema], // Un carrito tiene una matriz de productos
-    total: Number,
-    discountedTotal: Number,
-    userId: Number,
-    totalProducts: Number,
-    totalQuantity: Number,
-});
 
 // Modelo de Mongoose para carritos
-const Cart = model('Cart', cartSchema);
+const Cart = mongoose.model('Cart', productSchema);
 
 export default Cart;
