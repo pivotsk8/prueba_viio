@@ -1,13 +1,26 @@
 import express from 'express'
-import morgan_1 from "morgan";
-import prueba from './routes/prueba.js'
+import dotenv from 'dotenv'
+import { db } from './config/db.js'
+import servicesRoutes from './routes/serviceRoutes.js'
 import { ExpressLogableConfig } from 'viio-project-tools';
 
+//Variable de entorno 
+dotenv.config()
+
+//Configuracion la app
 const app = express()
-// const ex = new ExpressLogableConfig()
-// app.use(ex, morgan_1)
+const logableConfig = new ExpressLogableConfig();
+logableConfig.apply(app);
 app.use(express.json())
-app.use('/api/api', prueba)
-app.listen(4000, () => {
-    console.log(`El servidor se esta ejecutando en el puerto: 4000`)
+
+//Conexión a DB
+db()
+
+//Definir rutas
+app.use('/api/products', servicesRoutes)
+
+//Puerto
+const PORT = process.env.PORT || 4000
+app.listen(PORT, () => {
+    console.log(`El servidor se esta ejecutando en el puerto: ${PORT}`)
 })
