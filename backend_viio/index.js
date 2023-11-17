@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import colors from 'colors'
+import cors from 'cors'
 import { db } from './config/db.js'
 import cartRoutes from './routes/cartRoutes.js'
 import { ExpressLogableConfig } from 'viio-project-tools';
@@ -19,6 +20,22 @@ app.use(express.json())
 //Conexión a DB
 db()
 
+//Configuracion cors
+const whiteList = [process.env.FRONTEND_URL]
+
+if (process.argv[2] === '--postman') {
+    whiteList.push(undefined)
+}
+
+const corsOptions = {
+    origin: function name(origin, callback) {
+
+        whiteList.includes(origin)
+            ? callback(null, true)
+            : callback(colors.red('Origin not allowed by CORS'), false)
+    }
+}
+app.use(cors(corsOptions))
 
 //Definir rutas
 app.use('/api/cart', cartRoutes)
