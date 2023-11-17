@@ -18,7 +18,8 @@ logableConfig.apply(app);
 app.use(express.json())
 
 //Conexión a DB
-db().then(() => cartService())
+// db().then(() => cartService())
+db()
 
 
 //Definir rutas
