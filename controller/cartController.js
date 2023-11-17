@@ -3,9 +3,14 @@ import { validateObjectId, handleNotFoundError } from '../utils/index.js'
 
 
 const getCarts = async (req, res) => {
-    const allProducts = await Cart.find()
-    res.status(200).json(allProducts)
+    try {
+        const allProducts = await Cart.find();
+        res.status(200).json(allProducts);
+    } catch (error) {
+        console.log(error)
+    }
 }
+
 const getCartsById = async (req, res) => {
     const { id } = req.params
 
