@@ -12,8 +12,8 @@ function handleNotFoundError(message, res) {
     return res.status(404).json({ msg: error.message })
 }
 
-function handleMissChampsError(res) {
-    const error = new Error("Todos los campos son obligatorios")
+function handleUserError(message = 'Todos los campos son obligatorios', res) {
+    const error = new Error(message)
     return res.status(400).json({ msg: error.message })
 }
 
@@ -22,6 +22,6 @@ const uniqueId = () => Date.now().toString(32) + Math.random().toString(32).subs
 export {
     validateObjectId,
     handleNotFoundError,
-    handleMissChampsError,
+    handleUserError,
     uniqueId
 }
