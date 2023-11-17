@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { uniqueId } from "../utils";
-uniqueId
+import { uniqueId } from "../utils/index.js";
+
 
 const userSchema = mongoose.Schema({
     name: {
@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
     },
     token: {
         type: String,
-        default: () => uniqueId,
+        default: () => uniqueId()
     },
     verifired: {
         type: Boolean,

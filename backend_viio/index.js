@@ -4,6 +4,7 @@ import colors from 'colors'
 import cors from 'cors'
 import { db } from './config/db.js'
 import cartRoutes from './routes/cartRoutes.js'
+import authRoutes from './routes/authRoutes.js'
 import { ExpressLogableConfig } from 'viio-project-tools';
 
 //Variable de entorno 
@@ -39,6 +40,7 @@ app.use(cors(corsOptions))
 
 //Definir rutas
 app.use('/api/cart', cartRoutes)
+app.use('/api/auth', authRoutes)
 
 //Puerto
 const PORT = process.env.PORT || 4000
