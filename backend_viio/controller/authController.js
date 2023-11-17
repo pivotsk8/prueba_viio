@@ -1,6 +1,6 @@
 import User from '../models/User.js'
 import colors from 'colors'
-import { handleUserError, handleUnauthorizedError } from '../utils/index.js'
+import { handleUserError, handleUnauthorizedError, generateJWT } from '../utils/index.js'
 import { sendEmailVerification } from '../emails/authEmailService.js'
 
 const register = async (req, res) => {
@@ -58,8 +58,9 @@ const login = async (req, res) => {
     }
 
     //Comprobar el password
+    const token = generateJWT(user._id)
     await user.checkPassword(password)
-        ? res.json({ msg: 'Usuario Autenticado' })
+        ? res.json({ token })
         : handleUnauthorizedError('El password es incorrecto', res)
 }
 
