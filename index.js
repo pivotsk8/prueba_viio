@@ -4,7 +4,6 @@ import colors from 'colors'
 import { db } from './config/db.js'
 import cartRoutes from './routes/cartRoutes.js'
 import { ExpressLogableConfig } from 'viio-project-tools';
-import { cartService } from './data/cartServices.js'
 
 //Variable de entorno 
 dotenv.config()
@@ -18,7 +17,6 @@ logableConfig.apply(app);
 app.use(express.json())
 
 //Conexión a DB
-// db().then(() => cartService())
 db()
 
 
