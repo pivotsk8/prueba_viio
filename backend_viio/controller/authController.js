@@ -1,5 +1,7 @@
 import User from '../models/User.js'
-import { handleUserError } from '../utils/index.js'
+import colors from 'colors'
+import { handleUserError, handleUnauthorizedError } from '../utils/index.js'
+import { sendEmailVerification } from '../emails/authEmailService.js'
 
 const register = async (req, res) => {
     if (Object.values(req.body).includes('')) handleUserError(undefined, res)
@@ -15,13 +17,33 @@ const register = async (req, res) => {
     //crea al usuario
     try {
         const user = new User(req.body)
-        await user.save()
+        const { name, email, token } = await user.save()
+        sendEmailVerification({ name, email, token })
         res.status(200).json({ msg: 'El usuario se creo correctamente, revisa tu email' })
     } catch (error) {
         console.log(error)
     }
 }
 
+const verifyAccount = async (req, res) => {
+    const { token } = req.params
+    const user = await User.findOne({ token })
+
+    //Verificacion token
+    if (!user) handleUnauthorizedError('Hubo un error, token no válido', res)
+
+    //Si token es valido, confima cuenta
+    try {
+        user.verified = true
+        user.token = ''
+        await user.save()
+        res.json({ msg: 'Usuario Confirmado Correctamente' })
+    } catch (error) {
+        console.log(colors.red.bold(error))
+    }
+}
+
 export {
-    register
+    register,
+    verifyAccount
 }

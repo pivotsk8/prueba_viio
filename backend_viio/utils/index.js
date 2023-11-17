@@ -17,11 +17,17 @@ function handleUserError(message = 'Todos los campos son obligatorios', res) {
     return res.status(400).json({ msg: error.message })
 }
 
+function handleUnauthorizedError(message, res) {
+    const error = new Error(message)
+    return res.status(401).json({ msg: error.message })
+}
+
 const uniqueId = () => Date.now().toString(32) + Math.random().toString(32).substring(2)
 
 export {
     validateObjectId,
     handleNotFoundError,
     handleUserError,
+    handleUnauthorizedError,
     uniqueId
 }

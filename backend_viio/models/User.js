@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema({
         type: String,
         default: () => uniqueId()
     },
-    verifired: {
+    verified: {
         type: Boolean,
         default: false
     }
