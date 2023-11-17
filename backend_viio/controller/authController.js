@@ -46,12 +46,21 @@ const login = async (req, res) => {
 
     //Revisar que el usuario existe
     const user = await User.findOne({ email })
-    if (!user) handleUnauthorizedError('El usuario no existe', res)
+    if (!user) {
+        handleUnauthorizedError('El usuario no existe', res)
+        return
+    }
 
     //Revisar si el usuario confirmo su cuenta
-    if (!user.verified) handleUnauthorizedError('Tu cuenta no ha sido confirmada', res)
-    
+    if (!user.verified) {
+        handleUnauthorizedError('Tu cuenta no ha sido confirmada', res)
+        return
+    }
+
     //Comprobar el password
+    await user.checkPassword(password)
+        ? res.json({ msg: 'Usuario Autenticado' })
+        : handleUnauthorizedError('El password es incorrecto', res)
 }
 
 export {

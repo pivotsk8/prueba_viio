@@ -2,15 +2,15 @@ import { createTransport } from "../config/nodemailler.js";
 
 export async function sendEmailVerification({ name, email, token }) {
     const transporter = createTransport(
-        "sandbox.smtp.mailtrap.io",
-        2525,
-        "108a4ff7fd1461",
-        "c034f2d14e42c1"
+        process.env.EMAIL_HOST,
+        process.env.EMAIL_PORT,
+        process.env.EMAIL_USER,
+        process.env.EMAIL_PASS
     )
 
     //Enviar email
     const info = await transporter.sendMail({
-        from: 'Viio',
+        from: 'Viio <viio@viio.com>',
         to: email,
         subject: 'Confirme seu Email!',
         text: "confirmaa cuenta",
