@@ -24,7 +24,6 @@ const register = async (req, res) => {
         console.log(error)
     }
 }
-
 const verifyAccount = async (req, res) => {
     const { token } = req.params
     const user = await User.findOne({ token })
@@ -42,8 +41,21 @@ const verifyAccount = async (req, res) => {
         console.log(colors.red.bold(error))
     }
 }
+const login = async (req, res) => {
+    const { email, password } = req.body
+
+    //Revisar que el usuario existe
+    const user = await User.findOne({ email })
+    if (!user) handleUnauthorizedError('El usuario no existe', res)
+
+    //Revisar si el usuario confirmo su cuenta
+    if (!user.verified) handleUnauthorizedError('Tu cuenta no ha sido confirmada', res)
+    
+    //Comprobar el password
+}
 
 export {
     register,
-    verifyAccount
+    verifyAccount,
+    login
 }
