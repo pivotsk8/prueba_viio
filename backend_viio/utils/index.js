@@ -22,6 +22,10 @@ function handleUnauthorizedError(message, res) {
     const error = new Error(message)
     return res.status(401).json({ msg: error.message })
 }
+function handleForbiddenError(message, res) {
+    const error = new Error(message)
+    return res.status(403).json({ msg: error.message })
+}
 
 const uniqueId = () => Date.now().toString(32) + Math.random().toString(32).substring(2)
 
@@ -38,6 +42,7 @@ export {
     handleNotFoundError,
     handleUserError,
     handleUnauthorizedError,
+    handleForbiddenError,
     generateJWT,
     uniqueId
 }
