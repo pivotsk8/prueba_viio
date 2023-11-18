@@ -24,6 +24,7 @@ const register = async (req, res) => {
         console.log(error)
     }
 }
+
 const verifyAccount = async (req, res) => {
     const { token } = req.params
     const user = await User.findOne({ token })
@@ -41,6 +42,7 @@ const verifyAccount = async (req, res) => {
         console.log(colors.red.bold(error))
     }
 }
+
 const login = async (req, res) => {
     const { email, password } = req.body
 
@@ -63,6 +65,7 @@ const login = async (req, res) => {
         ? res.json({ token })
         : handleUnauthorizedError('El password es incorrecto', res)
 }
+
 const user = async (req, res) => {
     const { user } = req
     res.json({ user })
