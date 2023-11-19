@@ -4,7 +4,7 @@ import colors from 'colors';
 export const db = async () => {
     try {
         const db = await mongoose.connect(process.env.MONGO_URI, {
-            serverSelectionTimeoutMS: 3000000, // Ajusta según sea necesario
+            serverSelectionTimeoutMS: 30000, // Ajusta según sea necesario
         })
         const url = `${db.connection.host}:${db.connection.port}`
         console.log(colors.cyan(`MongoDB se conectó correctamente: ${url}`))

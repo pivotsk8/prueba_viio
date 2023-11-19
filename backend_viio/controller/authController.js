@@ -9,10 +9,16 @@ const register = async (req, res) => {
     const { name, email, password } = req.body
     //Evitar registros duplicados
     const userExists = await User.findOne({ email })
-    if (userExists) handleUserError('Usuario ya esta registrado', res)
+    if (userExists) {
+        handleUserError('Usuario ya esta registrado', res)
+        return
+    }
 
     //Validar extencion del password
-    if (password.trim().length < 8) handleUserError('El usuario debe contener 8 caracteres', res)
+    if (password.trim().length < 8) {
+        handleUserError('El usuario debe contener 8 caracteres', res)
+        return
+    }
 
     //crea al usuario
     try {
@@ -55,7 +61,7 @@ const login = async (req, res) => {
 
     //Revisar si el usuario confirmo su cuenta
     if (!user.verified) {
-        handleUnauthorizedError('Tu cuenta no ha sido confirmada', res)
+        handleUnauthorizedError('Tu cuenta no ha sido confirmada, revisa tu email', res)
         return
     }
 
