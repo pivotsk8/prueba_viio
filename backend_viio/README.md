@@ -1,5 +1,11 @@
 # Prueba Tecnica VIIO
 
+Este proyecto fue desarrollado como parte de la prueba técnica para VIIO.
+ Para ponerlo en marcha, sigue estas instrucciones.
+ Asegúrate de tener MongoDB instalado si no el proyecto no funcionara; si aún no lo has hecho, te recomendaría instalarlo. 
+ También es esencial contar con MongoDB Compass para una interfaz gráfica más amigable.
+
+
 ### Comandos
 - `npm start`
 - `npm run dev` (Inicia el servidor en modo de desarrollo.)
@@ -9,7 +15,6 @@
 ### Instalación de Dependencias
 
 `npm install`
-
 
 
 ## Configuración
