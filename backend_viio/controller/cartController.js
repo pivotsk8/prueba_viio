@@ -4,7 +4,7 @@ import { validateObjectId, handleNotFoundError } from '../utils/index.js'
 
 const getCarts = async (req, res) => {
     try {
-        const allProducts = await Cart.find();
+        const allProducts = await Cart.find().sort({ title: 1 });
         res.status(200).json(allProducts);
     } catch (error) {
         console.log(error)

@@ -14,10 +14,12 @@ const authMiddleware = async (req, res, next) => {
             )
         } catch (error) {
             handleForbiddenError('Token no valido ', res)
+            return
         }
         next()
     } else {
         handleForbiddenError('Token no valido o inexistente', res)
+        return
     }
 }
 

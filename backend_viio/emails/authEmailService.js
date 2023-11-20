@@ -19,5 +19,4 @@ export async function sendEmailVerification({ name, email, token }) {
         <a href="${process.env.FRONTEND_URL}/auth/verify/${token}">Confirmar cuenta</a>
         <p>Si tu no create esta cuenta, puedes ignorar este mensaje</p>`
     })
-    console.log(info.messageId)
 }
